@@ -16,7 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from DamenShipyardsApp.views import home_view
+from shipments.views import shipment_detail_view
 urlpatterns = [
     path('', home_view, name='home'),
+    path('shipments', shipment_detail_view, name='shipments'),
     path('admin/', admin.site.urls)
 ]

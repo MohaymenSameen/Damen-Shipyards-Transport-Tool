@@ -11,27 +11,27 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AlterField(
-            model_name='shipment',
+            model_name='shipments',
             name='Carrier',
             field=models.CharField(max_length=50),
         ),
         migrations.AlterField(
-            model_name='shipment',
+            model_name='shipments',
             name='Departure',
             field=models.CharField(max_length=50),
         ),
         migrations.AlterField(
-            model_name='shipment',
+            model_name='shipments',
             name='Destination',
             field=models.CharField(max_length=100),
         ),
         migrations.AlterField(
-            model_name='shipment',
+            model_name='shipments',
             name='Dimensions',
             field=models.CharField(blank=True, max_length=50, null=True),
         ),
         migrations.AlterField(
-            model_name='shipment',
+            model_name='shipments',
             name='ShipperReference',
             field=models.CharField(max_length=20),
         ),
