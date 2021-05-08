@@ -17,6 +17,9 @@ def shipment_detail_view(request):
     return render(request, "SchenkerTemplates/schenker_shipment_detail.html", context)
 
 
+def index_dashboard_view(request, *args, **kwargs):
+    return render(request, "Dashboard/index.html")
+
 def simple_upload(request):
     if request.method == 'POST':
         shipment_resource = ShipmentResource()
