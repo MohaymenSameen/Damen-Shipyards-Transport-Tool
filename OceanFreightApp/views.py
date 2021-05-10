@@ -14,7 +14,7 @@ def shipment_detail_view(request):
     context = {
         'object_list': queryset
     }
-    return render(request, "SchenkerTemplates/schenker_shipment_detail.html", context)
+    return render(request, "OceanFreightTemplates/ocean_freight_shipment_detail.html", context)
 
 
 def index_dashboard_view(request, *args, **kwargs):
@@ -28,12 +28,12 @@ def simple_upload(request):
 
         if not new_shipment.name.endswith('xlsx' or 'xls'):
             messages.info(request, 'wrong format')
-            return render(request, 'SchenkerTemplates/schenker_shipment_detail.html')
+            return render(request, 'OceanFreightTemplates/ocean_freight_shipment_detail.html')
         imported_data = dataset.load(new_shipment.read(), format='xlsx')
         for data in imported_data:
             value = Shipment(data[2], data[4], data[23], data[27], data[24], data[28], data[29], data[9], data[10],
                              data[13], data[11], data[21])
             value.save()
-    return render(request, 'SchenkerTemplates/schenker_shipment_detail.html')
+    return render(request, 'OceanFreightTemplates/ocean_freight_shipment_detail.html')
 
 

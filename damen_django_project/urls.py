@@ -16,11 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from DamenShipyardsApp.views import index_home_view
-from SchenkerApp.views import shipment_detail_view
-from SchenkerApp.views import index_dashboard_view
+from OceanFreightApp.views import shipment_detail_view
+from OceanFreightApp.views import index_dashboard_view
 urlpatterns = [
     path('', index_home_view, name='home'),
     path('dashboard/ocean', index_dashboard_view, name='dashboard'),
-    path('SchenkerApp', shipment_detail_view, name='SchenkerApp'),
+    path('OceanFreightApp', shipment_detail_view, name='OceanFreightApp'),
     path('admin/', admin.site.urls)
 ]
