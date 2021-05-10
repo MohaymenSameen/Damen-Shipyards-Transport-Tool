@@ -18,3 +18,4 @@ class ShipmentAdmin(ImportExportModelAdmin):
                     'Dimensions',
                     'Carrier',
                     'ShipperReference')
+
