@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'import_export',
     'OceanFreightApp',
     'AirFreightApp',
+    'GroundShippingApp',
     'DamenShipyardsApp'
 ]
 
