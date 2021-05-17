@@ -1,9 +1,10 @@
 from django.contrib import admin
 from import_export.admin import ImportExportModelAdmin
 from .models import GroundShipment
-# Register your models here.
-admin.site.register(GroundShipment, ImportExportModelAdmin)
+from .resources import ShipmentResource
 
+
+# Register your models here.
 
 class GroundShippingAdmin(ImportExportModelAdmin):
     list_display = ('OrderNr',
@@ -28,3 +29,7 @@ class GroundShippingAdmin(ImportExportModelAdmin):
                     'CosigneeNr',
                     'ETC',
                     'ETA')
+    resource_class = ShipmentResource
+
+
+admin.site.register(GroundShipment, GroundShippingAdmin)

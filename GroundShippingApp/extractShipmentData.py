@@ -8,9 +8,6 @@ location = os.path.join(BASE_DIR, "resources", "Courier 2021.1.xls")
 
 df = pd.read_excel(location)
 
-# df['Shipmentdate'] = pd.to_datetime(df['Shipmentdate'], format='%d/%M/%Y').dt.strftime('%Y-%m-%d')
-# df['ETD'] = pd.to_datetime(df['ETD'], format='%d/%M/%Y', errors='coerce').dt.strftime('%Y-%m-%d')
-# df['ETA'] = pd.to_datetime(df['ETA'], format='%d/%M/%Y', errors='coerce').dt.strftime('%Y-%m-%d')
 
 df['Dimensions'] = df['Length'].map(str) + 'L-' + df['Width'].map(str) + 'W-' + df['Height'].map(str) + 'H'
 
@@ -39,5 +36,4 @@ renameColumns = selectColumns.rename(
              "Courier": "Courier",
              "ETC": "ETC", "ETA": "ETA"})
 
-renameColumns.insert(0, 'ID', '')
 newExcel = renameColumns.to_excel("CleanGroundShippingDataset.xlsx", index=False, encoding='utf8')

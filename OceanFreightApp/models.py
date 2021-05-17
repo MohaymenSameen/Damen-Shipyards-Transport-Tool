@@ -2,8 +2,8 @@ from django.db import models
 
 
 # Create your models here.
-class Shipment(models.Model):
-    ShipmentId = models.PositiveBigIntegerField()
+class OceanFreightShipment(models.Model):
+    ShipmentId = models.PositiveBigIntegerField(primary_key=True)
     ContainerNr = models.TextField(blank=True, null=True)
     Departure = models.CharField(max_length=50)
     Destination = models.CharField(max_length=100)

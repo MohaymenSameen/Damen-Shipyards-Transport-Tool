@@ -26,5 +26,4 @@ renameColumns = selectColumns.rename(
              "Shipment Info": "ShipmentInfo", "Shipmentdate": "ShipmentDate", "ETD": "ETD", "ETA": "ETA",
              "Status": "Status"})
 
-renameColumns.insert(0, 'ID', '')
 newExcel = renameColumns.to_excel("cleanAirFreightDataset.xlsx", index=False, encoding='utf8')

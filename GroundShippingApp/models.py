@@ -3,7 +3,7 @@ from django.db import models
 
 # Create your models here.
 class GroundShipment(models.Model):
-    OrderNr = models.TextField(max_length=9)
+    OrderNr = models.TextField(primary_key=True, max_length=9)
     Status = models.TextField(max_length=20)
     TrackingNr = models.TextField(max_length=14)
     Contents = models.TextField(max_length=50)

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from .models import Shipment
+from .models import OceanFreightShipment
 from .resources import ShipmentResource
 from django.contrib import messages
 from tablib import Dataset
@@ -9,7 +9,7 @@ from django.http import HttpResponse
 
 # Create your views here.
 def shipment_detail_view(request):
-    queryset = Shipment.objects.all()
+    queryset = OceanFreightShipment.objects.all()
 
     context = {
         'object_list': queryset
@@ -31,8 +31,8 @@ def simple_upload(request):
             return render(request, 'OceanFreightTemplates/ocean_freight_shipment_detail.html')
         imported_data = dataset.load(new_shipment.read(), format='xlsx')
         for data in imported_data:
-            value = Shipment(data[2], data[4], data[23], data[27], data[24], data[28], data[29], data[9], data[10],
-                             data[13], data[11], data[21])
+            value = OceanFreightShipment(data[2], data[4], data[23], data[27], data[24], data[28], data[29], data[9], data[10],
+                                         data[13], data[11], data[21])
             value.save()
     return render(request, 'OceanFreightTemplates/ocean_freight_shipment_detail.html')
 

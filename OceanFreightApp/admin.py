@@ -1,11 +1,10 @@
 from django.contrib import admin
 from import_export.admin import ImportExportModelAdmin
-from .models import Shipment
+from .models import OceanFreightShipment
+from .resources import ShipmentResource
 
-admin.site.register(Shipment, ImportExportModelAdmin)
 
-
-class ShipmentAdmin(ImportExportModelAdmin):
+class OceanFreightAdmin(ImportExportModelAdmin):
     list_display = ('ShipmentId',
                     'ContainerNr',
                     'Departure',
@@ -18,4 +17,7 @@ class ShipmentAdmin(ImportExportModelAdmin):
                     'Dimensions',
                     'Carrier',
                     'ShipperReference')
+    resource_class = ShipmentResource
 
+
+admin.site.register(OceanFreightShipment, OceanFreightAdmin)

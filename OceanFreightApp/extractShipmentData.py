@@ -20,5 +20,4 @@ renameColumns = selectColumns.rename(
              "Container Volume": "TotalVolume", "Container Weight": "TotalWeight", "Container Movement": "Dimensions",
              "Carrier": "Carrier", "Shipper Reference": "ShipperReference"})
 
-renameColumns.insert(0, 'ID', '')
-newExcel = renameColumns.to_excel("cleanSchenkerDataset.xlsx", index=False, encoding='utf8')
+newExcel = renameColumns.to_excel("CleanOceanFreightDataset.xlsx", index=False, encoding='utf8')
