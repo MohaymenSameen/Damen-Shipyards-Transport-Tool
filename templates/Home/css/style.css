@@ -1220,7 +1220,7 @@ h1, h2, h3, h4, h5,
   margin-top: -100px; }
 
 .feature-1, .free-quote, .feature-3 {
-  background: #f89d13;
+  background: #2546B1;
   padding: 30px 50px;
   color: rgba(255, 255, 255, 0.6);
   font-size: 15px; }
@@ -1276,7 +1276,7 @@ h1, h2, h3, h4, h5,
       font-style: italic; }
 
 .feature-3 {
-  background: #e18a07; }
+  background: #2546B1; }
 
 .border-primary {
   position: relative; }
