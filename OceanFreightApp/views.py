@@ -18,22 +18,8 @@ def shipment_detail_view(request):
 
 
 def index_dashboard_view(request, *args, **kwargs):
-    return render(request, "Dashboard/index.html")
+    return render(request, "OceanFreightTemplates/ocean_freight_dashboard.html")
 
-def simple_upload(request):
-    if request.method == 'POST':
-        shipment_resource = ShipmentResource()
-        dataset = Dataset()
-        new_shipment = request.FILES['myFile']
 
-        if not new_shipment.name.endswith('xlsx' or 'xls'):
-            messages.info(request, 'wrong format')
-            return render(request, 'OceanFreightTemplates/ocean_freight_shipment_detail.html')
-        imported_data = dataset.load(new_shipment.read(), format='xlsx')
-        for data in imported_data:
-            value = OceanFreightShipment(data[2], data[4], data[23], data[27], data[24], data[28], data[29], data[9], data[10],
-                                         data[13], data[11], data[21])
-            value.save()
-    return render(request, 'OceanFreightTemplates/ocean_freight_shipment_detail.html')
 
 
