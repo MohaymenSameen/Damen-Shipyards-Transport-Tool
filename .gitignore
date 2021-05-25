@@ -1,3 +1,5 @@
 
 *.xls
 *.xlsx
+damen_django_project/__pycache__/settings.cpython-37.pyc
+damen_django_project/__pycache__/settings.cpython-39.pyc
