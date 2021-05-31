@@ -36,7 +36,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'import_export',
-    'SchenkerApp',
+    'django_tables2',
+    'django_filters',
+    'bootstrap4',
+    'OceanFreightApp',
+    'AirFreightApp',
+    'GroundShippingApp',
     'DamenShipyardsApp'
 ]
 
@@ -116,6 +121,10 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+    'static',
+]
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
