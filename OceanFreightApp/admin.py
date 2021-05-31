@@ -5,7 +5,8 @@ from .resources import ShipmentResource
 
 
 class OceanFreightAdmin(ImportExportModelAdmin):
-    list_display = ('ShipmentId',
+    list_display = ('MainShipmentId',
+                    'ShipmentId',
                     'ContainerNr',
                     'Departure',
                     'Destination',

@@ -8,8 +8,15 @@ location = os.path.join(BASE_DIR, "resources", "Schenker Sea 2020-2021.xlsx")
 
 df = pd.read_excel(location)
 
+# Adding new Id to concatenate shipment Id and container number to give a unique primary key
+df["MainShipmentId"] = df['STT'].map(str) + df['Container No'].map(str)
+
+# Removing Spaces
+df["MainShipmentId"] = df["MainShipmentId"].str.replace(' ', '')
+
 selectColumns = df[
-    ['STT', 'Container No', 'Departure Port', 'Destination Port', 'ETD Date (GMT Time)', 'ETA Date (GMT Time)',
+    ['MainShipmentId', 'STT', 'Container No', 'Departure Port', 'Destination Port', 'ETD Date (GMT Time)',
+     'ETA Date (GMT Time)',
      'CTA Date (GMT Time)', 'Container Volume', 'Container Weight', 'Container Movement', 'Carrier',
      'Shipper Reference']]
 
