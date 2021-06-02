@@ -46,9 +46,10 @@ def read_data():
 
     carrier = driver.find_element_by_xpath("//span[@data-test='carrier_value']").text
     containers = driver.find_elements_by_xpath("//span[@data-test='container_value']")
-
     for container in containers:
-        listShipment.append([shipmentId, container.text, departurePort, destinationPort, ETD, ETA, revisedArrival,
+        mainShipmentId = shipmentId.map(str) + container.text.map(str)
+        mainShipmentId = mainShipmentId.replace(' ', '')
+        listShipment.append([mainShipmentId, shipmentId, container.text, departurePort, destinationPort, ETD, ETA, revisedArrival,
                              totalVolume, totalWeight, carrier])
 
 
@@ -63,7 +64,7 @@ for shipmentId in listId:
         read_data()
 
 df = pd.DataFrame(listShipment,
-                  columns=["ShipmentId", "ContainerNr", "Departure", "Destination", "ScheduledDeparture",
+                  columns=["MainShipmentId", "ShipmentId", "ContainerNr", "Departure", "Destination", "ScheduledDeparture",
                            "ScheduledArrival", "RevisedArrival", "TotalVolume", "TotalWeight", "Carrier"])
 df.insert(0, 'ID', '')
 df.to_excel("selenium.xlsx", index=False, encoding='utf8')
