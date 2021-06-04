@@ -31,7 +31,7 @@ def read_data():
     ETD = driver.find_element_by_xpath("//span[@data-test='scheduled_departure_value']").text
     ETA = driver.find_element_by_xpath("//span[@data-test='scheduled_arrival_value']").text
     revisedArrival = driver.find_element_by_xpath("//span[@data-test='revised_arrival_value']").text
-    if ETD == "-":
+    if ETD == "-" or ETA == "-":
         return
     # New Format Date Time
     ETD = datetime.strptime(ETD, '%Y/%m/%d %H:%M').strftime("%Y-%m-%d")
@@ -47,10 +47,11 @@ def read_data():
     carrier = driver.find_element_by_xpath("//span[@data-test='carrier_value']").text
     containers = driver.find_elements_by_xpath("//span[@data-test='container_value']")
     for container in containers:
-        mainShipmentId = shipmentId.map(str) + container.text.map(str)
+        mainShipmentId = shipmentId + container.text
         mainShipmentId = mainShipmentId.replace(' ', '')
-        listShipment.append([mainShipmentId, shipmentId, container.text, departurePort, destinationPort, ETD, ETA, revisedArrival,
-                             totalVolume, totalWeight, carrier])
+        listShipment.append(
+            [mainShipmentId, shipmentId, container.text, departurePort, destinationPort, ETD, ETA, revisedArrival,
+             totalVolume, totalWeight, carrier])
 
 
 for shipmentId in listId:
@@ -64,7 +65,8 @@ for shipmentId in listId:
         read_data()
 
 df = pd.DataFrame(listShipment,
-                  columns=["MainShipmentId", "ShipmentId", "ContainerNr", "Departure", "Destination", "ScheduledDeparture",
+                  columns=["MainShipmentId", "ShipmentId", "ContainerNr", "Departure", "Destination",
+                           "ScheduledDeparture",
                            "ScheduledArrival", "RevisedArrival", "TotalVolume", "TotalWeight", "Carrier"])
 df.insert(0, 'ID', '')
 df.to_excel("selenium.xlsx", index=False, encoding='utf8')
