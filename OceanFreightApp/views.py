@@ -10,4 +10,3 @@ class OceanListView(SingleTableMixin, FilterView):
     table_class = OceanTable
     template_name = 'OceanFreightTemplates/ocean_freight_dashboard.html'
     filterset_class = OceanShipmentFilter
-
