@@ -1,6 +1,8 @@
+from django.contrib.auth.decorators import login_required
 from django.db.models import Count
 from django.http import JsonResponse
 from django.shortcuts import render
+from django.utils.decorators import method_decorator
 from django_filters.views import FilterView
 from django_tables2 import SingleTableMixin
 from .models import GroundShipment
@@ -33,7 +35,6 @@ class ChartData(APIView):
                 newList.append(shipment.Status)
                 statuses = GroundShipment.objects.filter(Status=shipment.Status).count()
                 newCount.append(statuses)
-
 
         data = {
             "labels": newList,

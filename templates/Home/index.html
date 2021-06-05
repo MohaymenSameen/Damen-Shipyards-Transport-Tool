@@ -55,11 +55,16 @@
                 <li class="has-children">
                   <a href="services.html">Services</a>
                   <ul class="dropdown">
-                    <li><a href="#">Air Freight</a></li>
-                    <li><a href="#">Ocean Freight</a></li>
-                    <li><a href="#">Ground Shipping</a></li>
+                    <li><a href="dashboard/air">Air Freight</a></li>
+                    <li><a href="dashboard/ocean">Ocean Freight</a></li>
+                    <li><a href="dashboard/ground">Ground Shipping</a></li>
                   </ul>
                 </li>
+              <li><a href="/login">Login</a></li>
+              <li><form id="logout-link" action="logout" method="post">
+                  {% csrf_token %}
+                  <a href="javascript:$('#logout-link').submit();">Logout</a>
+              </form></li>
               </ul>
             </nav>
           </div>
