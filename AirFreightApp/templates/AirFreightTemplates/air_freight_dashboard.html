@@ -1,6 +1,49 @@
 {% extends 'Dashboard/index.html' %}
 {% load bootstrap4 %}
 {% load render_table from django_tables2 %}
+<script>
+{% block jquery %}
+var endpoint = '/dashboard/air/api/chart/data'
+var defaultData = []
+var labels = []
+$.ajax({
+    method: "GET",
+    url: endpoint,
+    success: function(data){
+        console.log(data)
+        labels = data.labels
+        defaultData = data.default
+        var ctx = document.getElementById("myPieChart");
+        ctx.height = 100;
+        var myPieChart = new Chart(ctx, {
+          type: 'pie',
+          data: {
+            labels: labels,
+            datasets: [{
+              data: defaultData,
+              backgroundColor: ['#007bff', '#ebeb00', '#fca503', '#ff0000', '#00bf23', '#8300bf',
+                  '#898988', '#090900', '#584920', '#9d4fc0', '#4b9190', '#ea0cf5', '#3574bf', '#4c3a73',
+              '#d4d773', '#0ac464', '#e0c4fd', '#aaf131', '#6bc7af', '#28f2af', '#ffdf36', '#196d91', '#1e2185'],
+            }],
+  },
+            options: {
+                maintainAspectRatio : true, // make the pie small
+                legend: {
+                display: true,
+                labels: {
+                      fontSize: 8//change the size of the labels
+                }
+    }
+}
+
+});
+    },
+    error: function(error_data){
+        console.log("error")
+        console.log(error_data)}
+})
+{% endblock %}
+</script>
 {% block title %}Air Freight Dashboard{% endblock %}
 {% block pagetitle %}Air Freight Dashboard{% endblock %}
 {% block datatable %}Air Freight Shipments{% endblock %}
