@@ -26,3 +26,4 @@ class GroundShipment(models.Model):
     CosigneeNr = models.TextField(max_length=14)
     ETC = models.DateTimeField()
     ETA = models.DateTimeField(blank=True, null=True)
+

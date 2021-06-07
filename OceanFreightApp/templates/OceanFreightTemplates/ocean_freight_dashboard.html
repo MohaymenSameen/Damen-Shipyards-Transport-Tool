@@ -1,6 +1,37 @@
 {% extends 'Dashboard/index.html' %}
 {% load bootstrap4 %}
 {% load render_table from django_tables2 %}
+<script>
+{% block jquery %}
+var endpoint = '/dashboard/ocean/api/chart/data'
+var defaultData = []
+var labels = []
+$.ajax({
+    method: "GET",
+    url: endpoint,
+    success: function(data){
+        console.log(data)
+        labels = data.labels
+        defaultData = data.default
+        var ctx = document.getElementById("myPieChart");
+        ctx.height = 40;
+        var myPieChart = new Chart(ctx, {
+          type: 'pie',
+          data: {
+            labels: labels,
+            datasets: [{
+              data: defaultData,
+              backgroundColor: ['#007bff'],
+            }],
+  },
+});
+    },
+    error: function(error_data){
+        console.log("error")
+        console.log(error_data)}
+})
+{% endblock %}
+</script>
 {% block title %}Ocean Freight Dashboard{% endblock %}
 {% block dashboard %}../dashboard/ocean{% endblock %}
 {% block pagetitle %}Ocean Freight Dashboard{% endblock %}
