@@ -27,11 +27,10 @@ class AirChartData(APIView):
 
 
         for shipment in objects:
-            if shipment.Status not in newList:
-                newList.append(shipment.Status)
-                statuses = AirFreightShipment.objects.filter(Status=shipment.Status).count()
+            if shipment.BriefStatus not in newList:
+                newList.append(shipment.BriefStatus)
+                statuses = AirFreightShipment.objects.filter(BriefStatus=shipment.BriefStatus).count()
                 newCount.append(statuses)
-
 
         data = {
             "labels": newList,

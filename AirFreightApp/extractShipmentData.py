@@ -8,6 +8,54 @@ location = os.path.join(BASE_DIR, "resources", "Rhenus Air 2021 Shipments.xls")
 
 df = pd.read_excel(location)
 
+df['BriefStatus'] = df['Status']
+"""
+df['BriefStatus'].replace({'BriefStatus' : {Shipment delivered to consignee': 'Delivered',
+                                         'Shipment departed from airport of origin', 'Departed',
+                                         'Shipment handed over to another forwarder', 'Arranged',
+                                         'Customs clearance completed', 'In Transit',
+                                         'Rejected declaration (by customs)', 'Rejected',
+                                         'Consignee is a self-collector', 'Self-Collection',
+                                         'Shipment arrived at import gateway', 'Arrived',
+                                         'Confirmation of exit received', 'In Transit',
+                                         'Shipment handed over to destination forwarder', 'In Transit',
+                                         'Departure is checked', 'Departed',
+                                         'Shipment booked on flight:', 'In Transit',
+                                         'Shipment picked up', 'Collected',
+                                         'Arrival Notice provided to customer/notify', 'Status Update To Customer',
+                                         'Customer order received and file opened', 'Delivered',
+                                         'Shipment discrepancy - consignee or agent has been informed of arrival',
+                                          'Delayed',
+                                         'Shipment arrived at airport of destination', 'In Transit',
+                                         'Shipment departed from export gateway', 'Departed',
+                                         'Booking changed - order changed by principal', 'Booking Changed',
+                                         '(X)FWB received by carrier', 'Collected',
+                                         'Shipment delayed - flight departure delayed', 'Delayed',
+                                         'Arrival at exit', 'In Transit',
+                                         'Shipment prepared for loading by carrier', 'In Transit',
+                                         'Shipment arrived at departure carrier', 'In Transit',
+                                         'Shipment arrived at transit airport', 'In Transit',
+                                         inplace=True)
+"""
+df['BriefStatus'].replace(['Shipment delivered to consignee', 'Shipment departed from airport of origin',
+                           'Shipment handed over to another forwarder', 'Customs clearance completed',
+                           'Rejected declaration (by customs)', 'Consignee is a self-collector',
+                           'Shipment arrived at import gateway', 'Confirmation of exit received',
+                           'Shipment handed over to destination forwarder', 'Departure is checked',
+                           'Shipment booked on flight:', 'Shipment picked up',
+                           'Arrival Notice provided to customer/notify', 'Customer order received and file opened',
+                           'Shipment discrepancy - consignee or agent has been informed of arrival',
+                           'Shipment arrived at airport of destination',
+                           'Shipment departed from export gateway', 'Booking changed - order changed by principal',
+                           '(X)FWB received by carrier', 'Shipment delayed - flight departure delayed',
+                           'Arrival at exit', 'Shipment prepared for loading by carrier',
+                           'Shipment arrived at departure carrier', 'Shipment arrived at transit airport'],
+                          ['Delivered', 'Departed', 'Arranged', 'In Transit', 'Rejected', 'Self-Collection',
+                           'Arrived', 'In Transit', 'In Transit', 'Departed', 'In Transit', 'Collected',
+                           'Status Update To Customer', 'Delivered', 'Delayed', 'In Transit', 'Departed',
+                           'Booking Changed', 'Collected', 'Delayed', 'In Transit', 'In Transit', 'In Transit',
+                           'In Transit'], inplace=True)
+
 df['Shipmentdate'] = pd.to_datetime(df['Shipmentdate'], format='%d/%M/%Y').dt.strftime('%Y-%m-%d')
 df['ETD'] = pd.to_datetime(df['ETD'], format='%d/%M/%Y', errors='coerce').dt.strftime('%Y-%m-%d')
 df['ETA'] = pd.to_datetime(df['ETA'], format='%d/%M/%Y', errors='coerce').dt.strftime('%Y-%m-%d')
@@ -15,7 +63,7 @@ df['ETA'] = pd.to_datetime(df['ETA'], format='%d/%M/%Y', errors='coerce').dt.str
 selectColumns = df[
     ['Masterorder/Reference', 'Shipmentno', 'RP Shipmentno', 'Sender Name', 'Receiver Name', 'Country',
      'Zip Code', 'City', 'Consignee Reference', 'Order no. Consignor', 'Shipment Info',
-     'Shipmentdate', 'ETD', 'ETA', 'Status']]
+     'Shipmentdate', 'ETD', 'ETA', 'Status', 'BriefStatus']]
 
 renameColumns = selectColumns.rename(
     columns={"Masterorder/Reference": "MasterOrder", "Shipmentno": "ShipmentNr", "RP Shipmentno": "RPShipmentNr",
@@ -24,6 +72,6 @@ renameColumns = selectColumns.rename(
              "Zip Code": "ZipCode", "Consignee Reference": "CosigneeReference",
              "Order no. Consignor": "OrderNrCosignee",
              "Shipment Info": "ShipmentInfo", "Shipmentdate": "ShipmentDate", "ETD": "ETD", "ETA": "ETA",
-             "Status": "Status"})
+             "Status": "Status", "BriefStatus": "BriefStatus"})
 
 newExcel = renameColumns.to_excel("cleanAirFreightDataset.xlsx", index=False, encoding='utf8')
