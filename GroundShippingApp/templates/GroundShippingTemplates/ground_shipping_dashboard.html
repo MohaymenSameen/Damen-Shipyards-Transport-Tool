@@ -32,7 +32,11 @@ $.ajax({
 {% endblock %}
 </script>
 {% block title %}Ground Shipping Dashboard{% endblock %}
-
+{% block uploadbutton %}
+<div class="text-right">
+    <a href={% url 'uploadgroundfile' %} class="btn btn-primary m-3">Upload Dataset</a>
+</div>
+{% endblock %}
 {% block pagetitle %}Ground Shipping Dashboard{% endblock %}
 {% block datatable %}Ground Shipments{% endblock %}
 {% block dashboard %}../dashboard/ground{% endblock %}

@@ -43,6 +43,11 @@ $.ajax({
 })
 {% endblock %}
 </script>
+{% block uploadbutton %}
+<div class="text-right">
+    <a href={% url 'uploadairfile' %} class="btn btn-primary m-3">Upload Dataset</a>
+</div>
+{% endblock %}
 {% block title %}Air Freight Dashboard{% endblock %}
 {% block pagetitle %}Air Freight Dashboard{% endblock %}
 {% block datatable %}Air Freight Shipments{% endblock %}

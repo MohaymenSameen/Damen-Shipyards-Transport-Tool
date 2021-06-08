@@ -18,18 +18,17 @@
             <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
 
             <!-- Navbar-->
-            <div class="dropdown" style="position: absolute; right: 4%;">
-              <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Settings
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="/admin">Admin</a>
-                <form id="logout-link" action={% url 'logout' %} method="post">
-                  {% csrf_token %}
-                  <a class="dropdown-item" href="javascript:$('#logout-link').submit();">Logout</a>
-                </form>
-              </div>
-            </div>
+            <ul class="navbar-nav ml-auto ml-md-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="userDropdown" href="#!" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                </li>
+                <div class="dropdown-menu dropdown-menu-right"  aria-labelledby="userDropdown">
+                    <a class="dropdown-item" href="#!">Settings</a>
+                    <a class="dropdown-item" href="#!">Activity Log</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="../Login/login.html">Logout</a>
+                </div>
+            </ul>
         </nav>
         <div id="layoutSidenav">
             <div id="layoutSidenav_nav">
@@ -54,7 +53,32 @@
                                 <div class="sb-nav-link-icon"></div>
                                 Ground Shipping Dashboard
                             </a>
-
+                            <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                        Authentication
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="../Login/login.html">Login</a>
+                                            <a class="nav-link" href="register.html">Register</a>
+                                            <a class="nav-link" href="password.html">Forgot Password</a>
+                                        </nav>
+                                    </div>
+                                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
+                                        Error
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="401.html">401 Page</a>
+                                            <a class="nav-link" href="404.html">404 Page</a>
+                                            <a class="nav-link" href="500.html">500 Page</a>
+                                        </nav>
+                                    </div>
+                                </nav>
+                            </div>
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
@@ -68,41 +92,19 @@
                     <div class="container-fluid">
                     <div class="row">
                         <div class="col-xs-12" style="width: 100%">
-                            <h1 class="mt-4">{% block pagetitle %}{% endblock %}</h1>
-                            {% block uploadbutton %}{% endblock %}
+                            <h1 class="mt-4">Uploading Dataset</h1>
+                            <div class="text-center mt-5">
+                                <form method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <input type="file" name="document" />
+                                    <input type = "submit" value = "Upload" />
+                                </form>
+                                {% if url %}
+                                    <h3 class="m-4">File Uploaded Successfully: {{ url }}</h3>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
-                        <div class="row">
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="bi bi-pie-chart-fill"></i>
-                                        Total Shipments
-                                    </div>
-                                    <div class="card-body"><canvas id="myPieChart" width="100%" height="80"></canvas></div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-bar mr-1"></i>
-                                        Recent Tracking Updates
-                                    </div>
-                                    <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-table mr-1"></i>
-                                {% block datatable %}{% endblock %}
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    {% block tablecontent %}{% endblock %}
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">

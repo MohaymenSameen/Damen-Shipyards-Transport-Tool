@@ -2,10 +2,7 @@ import os.path
 from damen_django_project.settings import BASE_DIR
 import pandas as pd
 
-# from .models import Shipment
-
 location = os.path.join(BASE_DIR, "resources", "Schenker Sea 2020-2021.xlsx")
-
 df = pd.read_excel(location)
 
 # Adding new Id to concatenate shipment Id and container number to give a unique primary key
