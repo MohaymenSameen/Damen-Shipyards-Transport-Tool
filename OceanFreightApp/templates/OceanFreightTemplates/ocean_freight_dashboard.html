@@ -34,6 +34,11 @@ $.ajax({
 </script>
 {% block title %}Ocean Freight Dashboard{% endblock %}
 {% block dashboard %}../dashboard/ocean{% endblock %}
+{% block uploadbutton %}
+<div class="text-right">
+    <a href={% url 'uploadoceanfile' %} class="btn btn-primary m-3">Upload Dataset</a>
+</div>
+{% endblock %}
 {% block pagetitle %}Ocean Freight Dashboard{% endblock %}
 {% block datatable %}Ocean Freight Shipments{% endblock %}
 {% block tablecontent %}

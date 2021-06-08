@@ -92,41 +92,19 @@
                     <div class="container-fluid">
                     <div class="row">
                         <div class="col-xs-12" style="width: 100%">
-                            <h1 class="mt-4">{% block pagetitle %}{% endblock %}</h1>
-                            {% block uploadbutton %}{% endblock %}
+                            <h1 class="mt-4">Uploading Dataset</h1>
+                            <div class="text-center mt-5">
+                                <form method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <input type="file" name="document" />
+                                    <input type = "submit" value = "Upload" />
+                                </form>
+                                {% if url %}
+                                    <h3 class="m-4">File Uploaded Successfully: {{ url }}</h3>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
-                        <div class="row">
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="bi bi-pie-chart-fill"></i>
-                                        Total Shipments
-                                    </div>
-                                    <div class="card-body"><canvas id="myPieChart" width="100%" height="80"></canvas></div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-bar mr-1"></i>
-                                        Recent Tracking Updates
-                                    </div>
-                                    <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-table mr-1"></i>
-                                {% block datatable %}{% endblock %}
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    {% block tablecontent %}{% endblock %}
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">
