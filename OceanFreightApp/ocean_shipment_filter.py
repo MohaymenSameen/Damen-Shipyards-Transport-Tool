@@ -5,4 +5,4 @@ from .models import OceanFreightShipment
 class OceanShipmentFilter(filters.FilterSet):
     class Meta:
         model = OceanFreightShipment
-        fields = ['ShipmentId', 'ShipperReference']
+        fields = ['MainShipmentId', 'ShipperReference']

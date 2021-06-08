@@ -21,7 +21,8 @@ class AirFreightAdmin(ImportExportModelAdmin):
                     'ShipmentDate',
                     'ETD',
                     'ETA',
-                    'Status')
+                    'Status',
+                    'BriefStatus')
     resource_class = ShipmentResource
 
 

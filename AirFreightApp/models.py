@@ -18,3 +18,4 @@ class AirFreightShipment(models.Model):
     ETD = models.DateField(blank=True, null=True)
     ETA = models.DateField(blank=True, null=True)
     Status = models.TextField()
+    BriefStatus = models.TextField()
