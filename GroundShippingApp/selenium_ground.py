@@ -28,13 +28,17 @@ selectColumns = selectColumns.to_numpy()
 
 def getDataDHL(column):
     if driver.find_element_by_xpath("//h1[@class='l-grid--w-100pc-s']").text == 'TRACK: PARCEL':
-        # ETA
-        column[22] = driver.find_element_by_xpath("//div[@class='c-tracking-result--status-copy-date  ']").text
+        driver.find_element_by_xpath("//div[@class='c-component-accordion-list js--accordion--type-default']").click()
         listInfo = driver.find_elements_by_xpath(
             "//h4[@class='c-tracking-result--checkpoint--date  l-grid--w-100pc-s']")
         # ETC
         column[21] = listInfo[-1].text
+        column[21] = datetime.strptime(column[21], '%B, %d %Y').strftime("%Y-%m-%d %H:%M")
+        # ETA
+        column[22] = listInfo[0].text
+        column[22] = datetime.strptime(column[22], '%B, %d %Y').strftime("%Y-%m-%d %H:%M")
 
+# c-component-accordion-list js--accordion--type-default
 
 def getDbSchenker(column):
     ETD = driver.find_element_by_xpath("//span[@data-test='scheduled_departure_value']").text
@@ -49,12 +53,12 @@ def getDbSchenker(column):
     if ETD == "-" or ETA == "-":
         return
     # New Format Date Time
-    ETD = datetime.strptime(ETD, '%Y/%m/%d %H:%M').strftime("%Y-%m-%d")
-    ETA = datetime.strptime(ETA, '%Y/%m/%d %H:%M').strftime("%Y-%m-%d")
+    ETD = datetime.strptime(ETD, '%Y/%m/%d %H:%M').strftime("%Y-%m-%d %H:%M")
+    ETA = datetime.strptime(ETA, '%Y/%m/%d %H:%M').strftime("%Y-%m-%d %H:%M")
     column[21] = ETD
     column[22] = ETA
     if revisedArrival != "-":
-        revisedArrival = datetime.strptime(revisedArrival, '%Y/%m/%d %H:%M').strftime("%Y-%m-%d")
+        revisedArrival = datetime.strptime(revisedArrival, '%Y/%m/%d %H:%M').strftime("%Y-%m-%d %H:%M")
         column[22] = revisedArrival
 
 
@@ -109,8 +113,6 @@ for column in selectColumns:
                 column[22] = ETA
         except:
             continue
-
-
 
 driver.close()
 

@@ -34,10 +34,10 @@ def read_data():
     if ETD == "-" or ETA == "-":
         return
     # New Format Date Time
-    ETD = datetime.strptime(ETD, '%Y/%m/%d %H:%M').strftime("%Y-%m-%d")
-    ETA = datetime.strptime(ETA, '%Y/%m/%d %H:%M').strftime("%Y-%m-%d")
+    ETD = datetime.strptime(ETD, '%Y/%m/%d %H:%M').strftime("%Y-%m-%d %H:%M")
+    ETA = datetime.strptime(ETA, '%Y/%m/%d %H:%M').strftime("%Y-%m-%d %H:%M")
     if revisedArrival != "-":
-        revisedArrival = datetime.strptime(revisedArrival, '%Y/%m/%d %H:%M').strftime("%Y-%m-%d")
+        revisedArrival = datetime.strptime(revisedArrival, '%Y/%m/%d %H:%M').strftime("%Y-%m-%d %H:%M")
 
     totalVolume = driver.find_element_by_xpath("//span[@data-test='total_volume_value']").text
     totalWeight = driver.find_element_by_xpath("//span[@data-test='total_weight_value']").text
@@ -62,12 +62,14 @@ for shipmentId in listId:
         # Shipment not found
         driver.find_element_by_xpath("//h5[@class='error ng-star-inserted']")
     except NoSuchElementException:
-        read_data()
+        try:
+            read_data()
+        except:
+            continue
 
 df = pd.DataFrame(listShipment,
                   columns=["MainShipmentId", "ShipmentId", "ContainerNr", "Departure", "Destination",
                            "ScheduledDeparture",
                            "ScheduledArrival", "RevisedArrival", "TotalVolume", "TotalWeight", "Carrier"])
-df.insert(0, 'ID', '')
 df.to_excel("selenium.xlsx", index=False, encoding='utf8')
 driver.close()
