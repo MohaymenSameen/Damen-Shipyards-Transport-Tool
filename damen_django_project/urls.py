@@ -1,6 +1,9 @@
+from django.conf.urls import url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
+from django.views.static import serve
+
 from DamenShipyardsApp.views import index_home_view, login_view, logout_view
 from OceanFreightApp.views import OceanListView, OceanChartData, upload_file
 from AirFreightApp.views import AirListView, AirChartData, air_upload_file
@@ -22,10 +25,10 @@ urlpatterns = [
     path('dashboard/ground/api/chart/data', login_required(ChartData.as_view())),
     path('dashboard/air/api/chart/data', login_required(AirChartData.as_view())),
     path('dashboard/ocean/api/chart/data', login_required(OceanChartData.as_view())),
-    path('admin/', admin.site.urls)
+    path('admin/', admin.site.urls),
+    url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+    url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATICFILES_DIRS}),
 ]
-
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
